@@ -1,4 +1,4 @@
-# Hardhat Boilerplate
+# Oasis Boilerplate
 
 This repository contains a sample project that you can use as the starting point
 for your Ethereum project. It's also a great fit for learning the basics of
@@ -15,9 +15,9 @@ The first things you need to do are cloning this repository and installing its
 dependencies:
 
 ```sh
-git clone https://github.com/NomicFoundation/hardhat-boilerplate.git
-cd hardhat-boilerplate
-npm install
+git clone https://github.com/DavidRaigozaJ/oasis-boilerplate
+cd oasis-boilerplate
+pnpm install
 ```
 
 Once installed, let's run Hardhat's testing network:
