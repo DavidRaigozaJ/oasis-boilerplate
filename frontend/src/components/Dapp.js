@@ -2,7 +2,7 @@ import React from "react";
 
 // We'll use ethers to interact with the Ethereum network and our contract
 import { ethers } from "ethers";
-
+import * as sapphire from '@oasisprotocol/sapphire-paratime';
 // We import the contract's artifacts and address here, as we are going to be
 // using them with ethers
 import TokenArtifact from "../contracts/Token.json";
@@ -20,8 +20,7 @@ import { WaitingForTransactionMessage } from "./WaitingForTransactionMessage";
 import { NoTokensMessage } from "./NoTokensMessage";
 
 // This is the default id used by the Hardhat Network
-const HARDHAT_NETWORK_ID = '31337';
-
+const HARDHAT_NETWORK_ID = '23295'; // Sapphire Testnet
 // This is an error code that indicates that the user canceled a transaction
 const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
 
@@ -215,15 +214,21 @@ export class Dapp extends React.Component {
 
   async _initializeEthers() {
     // We first initialize ethers by creating a provider using window.ethereum
-    this._provider = new ethers.providers.Web3Provider(window.ethereum);
+    this._provider = sapphire.wrap(new ethers.providers.Web3Provider(window.ethereum));
 
     // Then, we initialize the contract using that provider and the token's
     // artifact. You can do this same thing with your contracts.
     this._token = new ethers.Contract(
       contractAddress.Token,
       TokenArtifact.abi,
-      this._provider.getSigner(0)
+      this._provider,
     );
+    this._tokenWrite = new ethers.Contract(
+      contractAddress.Token,
+      TokenArtifact.abi,
+      sapphire.wrap(new ethers.providers.Web3Provider(window.ethereum).getSigner())
+
+    )
   }
 
   // The next two methods are needed to start and stop polling data. While
@@ -284,7 +289,7 @@ export class Dapp extends React.Component {
 
       // We send the transaction, and save its hash in the Dapp's state. This
       // way we can indicate that we are waiting for it to be mined.
-      const tx = await this._token.transfer(to, amount);
+      const tx = await this._tokenWrite.transfer(to, amount);
       this.setState({ txBeingSent: tx.hash });
 
       // We use .wait() to wait for the transaction to be mined. This method
@@ -355,8 +360,10 @@ export class Dapp extends React.Component {
 
   // This method checks if the selected network is Localhost:8545
   _checkNetwork() {
-    if (window.ethereum.networkVersion !== HARDHAT_NETWORK_ID) {
-      this._switchChain();
-    }
+    this.setState({
+    networkError: 'Please connect to Sapphire ParaTime Testnet'
+    });
+    return false;
   }
+ 
 }

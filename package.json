@@ -23,6 +23,8 @@
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
     "@nomiclabs/hardhat-ethers": "^2.2.1",
     "@nomiclabs/hardhat-etherscan": "^3.1.4",
+    "@oasisprotocol/sapphire-hardhat": "^2.16.1",
+    "@oasisprotocol/sapphire-paratime": "^1.1.1",
     "chai": "^4.3.7",
     "ethers": "^5.7.2",
     "hardhat": "^2.12.5",

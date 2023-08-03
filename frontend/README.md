@@ -36,3 +36,4 @@ If you need help with this project or with Hardhat in general, please read [this
 [Follow us on Twitter](https://twitter.com/HardhatHQ) to get the latest news about Hardhat, and don't forget to star [our GitHub repository](https://github.com/NomicFoundation/hardhat)!
 
 **Happy _building_!**
+# oasis-boilerplate
